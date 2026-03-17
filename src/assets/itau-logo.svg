@@ -1,0 +1,7 @@
+<svg width="220" height="120" viewBox="0 0 220 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="1" y="1" width="218" height="118" rx="20" fill="#F6F6F7" stroke="#D3D5DA" stroke-width="2"/>
+  <circle cx="74" cy="60" r="34" fill="#F18400"/>
+  <rect x="53" y="39" width="42" height="42" rx="12" fill="#1F2A78"/>
+  <text x="74" y="66" text-anchor="middle" fill="#FFCC00" font-family="Arial, sans-serif" font-size="17" font-weight="700">itaú</text>
+  <text x="130" y="67" fill="#1D2433" font-family="Arial, sans-serif" font-size="24" font-weight="700">Itaú</text>
+</svg>
