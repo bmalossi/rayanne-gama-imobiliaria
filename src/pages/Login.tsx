@@ -23,7 +23,7 @@ const Login = () => {
 
   const onSubmit = async (values: Values) => {
     if (!isSupabaseConfigured) {
-      toast({ title: "Supabase não configurado", description: "Adicione VITE_SUPABASE_URL e VITE_SUPABASE_PUBLISHABLE_KEY.", variant: "destructive" });
+      toast({ title: "Erro de acesso", description: "Login ou senha incorreto", variant: "destructive" });
       return;
     }
 
@@ -31,7 +31,7 @@ const Login = () => {
     const { error } = await supabase.auth.signInWithPassword({ email: credentials.email, password: credentials.password });
 
     if (error) {
-      toast({ title: "Falha no login", description: error.message, variant: "destructive" });
+      toast({ title: "Erro de acesso", description: "Login ou senha incorreto", variant: "destructive" });
       return;
     }
 
