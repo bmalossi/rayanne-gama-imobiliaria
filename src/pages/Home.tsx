@@ -87,7 +87,7 @@ const Home = () => {
             intervalId = setInterval(() => {
               const duration = player.getDuration();
               const currentTime = player.getCurrentTime();
-              if (duration && currentTime > duration - 0.3) {
+              if (duration && currentTime > duration - 1.0) {
                 player.seekTo(0);
               }
             }, 100);
