@@ -110,11 +110,10 @@ const Listings = () => {
                 </Select>
                 <Select value={transaction || "all-transaction"} onValueChange={(value) => setTransaction(value === "all-transaction" ? "" : value)}>
                   <SelectTrigger className="h-12 rounded-md border border-input bg-background px-3 text-sm text-foreground">
-                    <SelectValue placeholder="Negócio" />
+                    <SelectValue placeholder="Venda" />
                   </SelectTrigger>
                   <SelectContent className="rounded-2xl border-border bg-popover p-1">
-                    <SelectItem value="all-transaction" className="rounded-xl">Negócio</SelectItem>
-                    <SelectItem value="venda" className="rounded-xl">Comprar</SelectItem>
+                    <SelectItem value="all-transaction" className="rounded-xl">Venda</SelectItem>
                     <SelectItem value="aluguel" className="rounded-xl">Alugar</SelectItem>
                   </SelectContent>
                 </Select>
