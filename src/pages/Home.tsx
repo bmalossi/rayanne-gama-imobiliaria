@@ -70,10 +70,8 @@ const Home = () => {
 
   // Garantir que o vídeo apareça mesmo se o evento onLoad do iframe for retardado ou falhar
   useEffect(() => {
-    if (!isMobile) {
-      const timer = setTimeout(() => setVideoReady(true), 3000);
-      return () => clearTimeout(timer);
-    }
+    const timer = setTimeout(() => setVideoReady(true), 3000);
+    return () => clearTimeout(timer);
   }, [isMobile]);
 
   const { data: featured = [] } = useFeaturedProperties();
@@ -177,26 +175,24 @@ const Home = () => {
           />
 
           {/* Vídeo YouTube */}
-          {!isMobile && (
-            <iframe
-              src="https://www.youtube.com/embed/cdoGQODy_h4?autoplay=1&mute=1&loop=1&playlist=cdoGQODy_h4&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&fs=0&enablejsapi=1&vq=hd1080&iv_load_policy=3"
-              allow="autoplay; fullscreen"
-              onLoad={() => setTimeout(() => setVideoReady(true), 1500)}
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%) scale(1.3)',
-                width: '100vw',
-                height: '56.25vw',
-                minHeight: '100vh',
-                minWidth: '177.77vh',
-                border: 'none',
-                pointerEvents: 'none',
-                zIndex: 1
-              }}
-            />
-          )}
+          <iframe
+            src="https://www.youtube.com/embed/cdoGQODy_h4?autoplay=1&mute=1&loop=1&playlist=cdoGQODy_h4&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&fs=0&enablejsapi=1&vq=hd1080&iv_load_policy=3"
+            allow="autoplay; fullscreen"
+            onLoad={() => setTimeout(() => setVideoReady(true), 1500)}
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: isMobile ? 'translate(-50%, -50%) scale(1.3)' : 'translate(-65%, -50%) scale(1.3)',
+              width: '100vw',
+              height: '56.25vw',
+              minHeight: '100vh',
+              minWidth: '177.77vh',
+              border: 'none',
+              pointerEvents: 'none',
+              zIndex: 1
+            }}
+          />
 
           {/* Camada bloqueadora invisível */}
           <div style={{
