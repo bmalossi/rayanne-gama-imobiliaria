@@ -74,6 +74,47 @@ const Home = () => {
     return () => clearTimeout(timer);
   }, [isMobile]);
 
+  // Integração com YouTube IFrame API para Loop Seamless
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+
+    const initPlayer = () => {
+      new (window as any).YT.Player("hero-video", {
+        events: {
+          onReady: (event: any) => {
+            const player = event.target;
+            // Checar o tempo a cada 100ms e voltar para o inicio logo antes de acabar
+            intervalId = setInterval(() => {
+              const duration = player.getDuration();
+              const currentTime = player.getCurrentTime();
+              if (duration && currentTime > duration - 0.3) {
+                player.seekTo(0);
+              }
+            }, 100);
+          },
+        },
+      });
+    };
+
+    if (!(window as any).YT) {
+      const tag = document.createElement("script");
+      tag.src = "https://www.youtube.com/iframe_api";
+      const firstScriptTag = document.getElementsByTagName("script")[0];
+      if (firstScriptTag && firstScriptTag.parentNode) {
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      } else {
+        document.head.appendChild(tag);
+      }
+      (window as any).onYouTubeIframeAPIReady = initPlayer;
+    } else if ((window as any).YT.Player) {
+      initPlayer();
+    }
+
+    return () => {
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, []);
+
   const { data: featured = [] } = useFeaturedProperties();
 
   const handleSearch = (cityValue = query, bedroomsValue = bedrooms) => {
@@ -176,14 +217,17 @@ const Home = () => {
 
           {/* Vídeo YouTube */}
           <iframe
+            id="hero-video"
             src="https://www.youtube.com/embed/cdoGQODy_h4?autoplay=1&mute=1&loop=1&playlist=cdoGQODy_h4&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&fs=0&enablejsapi=1&vq=hd1080&iv_load_policy=3"
             allow="autoplay; fullscreen"
             onLoad={() => setTimeout(() => setVideoReady(true), 1500)}
             style={{
               position: 'absolute',
               top: '50%',
-              left: '50%',
-              transform: isMobile ? 'translate(-50%, -50%) scale(1.3)' : 'translate(-65%, -50%) scale(1.3)',
+              left: isMobile ? 'auto' : '50%',
+              right: isMobile ? '0%' : 'auto',
+              transformOrigin: isMobile ? 'right center' : 'center center',
+              transform: isMobile ? 'translate(0%, -50%) scale(1.3)' : 'translate(-65%, -50%) scale(1.3)',
               width: '100vw',
               height: '56.25vw',
               minHeight: '100vh',
