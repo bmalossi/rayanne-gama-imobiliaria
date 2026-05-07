@@ -70,7 +70,7 @@ serve(async (req) => {
         }
 
         // Get invite details
-        const { email, full_name, role } = await req.json();
+        const { email, full_name, role, redirectTo } = await req.json();
         console.log(`Inviting user: ${email}, Name: ${full_name}, Role: ${role}`);
 
         if (!email || !full_name || !role) {
@@ -82,13 +82,14 @@ serve(async (req) => {
         }
 
         // Invite user
-        // Using a more reliable way to get the app URL, or fallback
+        // Use provided redirectTo or fallback to default
         const appUrl = Deno.env.get("APP_URL") || "https://rayanne-imobiliaria.vercel.app";
-        console.log(`Using appUrl: ${appUrl}`);
+        const finalRedirectTo = redirectTo || `${appUrl}/login`;
+        console.log(`Using redirectTo: ${finalRedirectTo}`);
 
         const { data: inviteData, error: inviteError } = await supabaseClient.auth.admin.inviteUserByEmail(email, {
             data: { full_name, role },
-            redirectTo: `${appUrl}/login`,
+            redirectTo: finalRedirectTo,
         });
 
         if (inviteError) {

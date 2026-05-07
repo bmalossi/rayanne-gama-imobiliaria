@@ -21,6 +21,7 @@ import UsersPage from "./pages/dashboard/UsersPage";
 import ChatbotSettingsPage from "./pages/dashboard/ChatbotSettingsPage";
 import LeadDistributionPage from "./pages/dashboard/LeadDistributionPage";
 import { AIChatbot } from "@/components/AIChatbot";
+import SetPassword from "./pages/SetPassword";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
               <Route path="/imoveis/:city/:slug" element={<PropertyDetail />} />
               <Route path="/login" element={<Login />} />
               <Route path="/cadastro" element={<Register />} />
+              <Route path="/set-password" element={<SetPassword />} />
               <Route
                 path="/dashboard"
                 element={

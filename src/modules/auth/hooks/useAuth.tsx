@@ -57,9 +57,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         const {
             data: { subscription },
-        } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+        } = supabase.auth.onAuthStateChange((event, nextSession) => {
             syncSessionState(nextSession);
+
+            // Redirecionamento para definição de senha (convite ou recuperação)
+            const isInviteOrRecovery =
+                event === "PASSWORD_RECOVERY" ||
+                window.location.hash.includes("type=invite") ||
+                window.location.hash.includes("type=recovery") ||
+                window.location.search.includes("type=invite") ||
+                window.location.search.includes("type=recovery");
+
+            if (isInviteOrRecovery && window.location.pathname !== "/set-password") {
+                console.log("Redirecionando para set-password (evento auth)...");
+                window.location.href = `${window.location.origin}/set-password`;
+            }
         });
+
+        // Verificação imediata no mount (caso o hash já esteja presente)
+        const hasTokenInUrl =
+            window.location.hash.includes("type=invite") ||
+            window.location.hash.includes("type=recovery") ||
+            window.location.search.includes("type=invite") ||
+            window.location.search.includes("type=recovery");
+
+        if (hasTokenInUrl && window.location.pathname !== "/set-password") {
+            setTimeout(() => {
+                if (window.location.pathname !== "/set-password") {
+                    console.log("Redirecionando para set-password (mount)...");
+                    window.location.href = `${window.location.origin}/set-password`;
+                }
+            }, 500);
+        }
 
         void supabase.auth
             .getSession()

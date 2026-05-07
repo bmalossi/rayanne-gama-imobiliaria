@@ -81,7 +81,10 @@ const UsersPage = () => {
     const inviteMutation = useMutation({
         mutationFn: async (values: InviteValues) => {
             const { data, error } = await supabase.functions.invoke("manage-users", {
-                body: values,
+                body: {
+                    ...values,
+                    redirectTo: `${window.location.origin}/login`,
+                },
             });
 
             if (error) throw error;
