@@ -68,52 +68,11 @@ const Home = () => {
   const [videoReady, setVideoReady] = useState(false);
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
-  // Garantir que o vídeo apareça mesmo se o evento onLoad do iframe for retardado ou falhar
+  // Garantir que o vídeo apareça mesmo se o evento onload/oncanplay falhar
   useEffect(() => {
     const timer = setTimeout(() => setVideoReady(true), 3000);
     return () => clearTimeout(timer);
   }, [isMobile]);
-
-  // Integração com YouTube IFrame API para Loop Seamless
-  useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-
-    const initPlayer = () => {
-      new (window as any).YT.Player("hero-video", {
-        events: {
-          onReady: (event: any) => {
-            const player = event.target;
-            // Checar o tempo a cada 100ms e voltar para o inicio logo antes de acabar
-            intervalId = setInterval(() => {
-              const duration = player.getDuration();
-              const currentTime = player.getCurrentTime();
-              if (duration && currentTime > duration - 1.0) {
-                player.seekTo(0);
-              }
-            }, 100);
-          },
-        },
-      });
-    };
-
-    if (!(window as any).YT) {
-      const tag = document.createElement("script");
-      tag.src = "https://www.youtube.com/iframe_api";
-      const firstScriptTag = document.getElementsByTagName("script")[0];
-      if (firstScriptTag && firstScriptTag.parentNode) {
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      } else {
-        document.head.appendChild(tag);
-      }
-      (window as any).onYouTubeIframeAPIReady = initPlayer;
-    } else if ((window as any).YT.Player) {
-      initPlayer();
-    }
-
-    return () => {
-      if (intervalId) clearInterval(intervalId);
-    };
-  }, []);
 
   const { data: featured = [] } = useFeaturedProperties();
 
@@ -215,12 +174,15 @@ const Home = () => {
             }}
           />
 
-          {/* Vídeo YouTube */}
-          <iframe
-            id="hero-video"
-            src="https://www.youtube.com/embed/cdoGQODy_h4?autoplay=1&mute=1&loop=1&playlist=cdoGQODy_h4&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&disablekb=1&fs=0&enablejsapi=1&vq=hd1080&iv_load_policy=3"
-            allow="autoplay; fullscreen"
-            onLoad={() => setTimeout(() => setVideoReady(true), 1500)}
+          {/* Vídeo Nativo */}
+          <video
+            src="/hero-video.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            onCanPlay={() => setVideoReady(true)}
             style={{
               position: 'absolute',
               top: '50%',
@@ -234,9 +196,11 @@ const Home = () => {
               minWidth: '177.77vh',
               border: 'none',
               pointerEvents: 'none',
-              zIndex: 1
+              zIndex: 1,
+              objectFit: 'cover'
             }}
           />
+
 
           {/* Camada bloqueadora invisível */}
           <div style={{
