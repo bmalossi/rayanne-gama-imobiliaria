@@ -1,5 +1,8 @@
 import { supabase, isSupabaseConfigured } from "@/services/supabase";
 import type { Property } from "@/types/domain";
+import { notifyIndexing } from "@/services/notify-indexing";
+import { generatePropertyUrl } from "@/shared/utils/url";
+import { SITE_CONFIG } from "@/shared/config/site";
 
 export type PropertyFilters = {
     city?: string;
@@ -280,6 +283,13 @@ export async function createProperty(agentId: string, payload: PropertyPayload, 
     }).select().single();
 
     if (error) throw error;
+
+    // Notificar Google e Bing para indexação (não bloqueia o fluxo)
+    if (payload.active && data?.id) {
+        const url = SITE_CONFIG.url + generatePropertyUrl({ id: data.id, title: data.title, city: data.city });
+        void notifyIndexing(url);
+    }
+
     return data;
 }
 
@@ -343,5 +353,12 @@ export async function updateProperty(userId: string, propertyId: string, payload
     }).eq("id", propertyId).select().single();
 
     if (error) throw error;
+
+    // Notificar Google e Bing para re-indexação (não bloqueia o fluxo)
+    if (payload.active && data?.id) {
+        const url = SITE_CONFIG.url + generatePropertyUrl({ id: data.id, title: data.title, city: data.city });
+        void notifyIndexing(url);
+    }
+
     return data;
 }

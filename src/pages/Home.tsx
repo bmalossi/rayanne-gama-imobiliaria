@@ -224,7 +224,7 @@ const Home = () => {
 
         <div className="container relative z-10 flex flex-1 flex-col justify-center gap-8 pb-56 pt-24 md:pb-32 md:pt-32">
 
-          <div className="inline-flex w-fit items-center rounded-sm bg-black/50 px-3 py-1.5 backdrop-blur-sm border border-white/10">
+          <div className="inline-flex w-fit items-center rounded-sm bg-black/100 px-3 py-1.5 backdrop-blur-sm border border-white/10">
             <p className="gold-label text-white font-extrabold uppercase tracking-widest text-xs md:text-sm">Imobiliária em Praia Grande</p>
           </div>
           <motion.h1
@@ -434,7 +434,7 @@ const Home = () => {
             <img src={itauLogo} alt="Logotipo do Banco Itaú" className="h-16 w-auto" loading="lazy" />
             <p className="mt-4 text-sm text-muted-foreground">Condições flexíveis para financiamento imobiliário com acompanhamento consultivo.</p>
             <Button asChild className="mt-5 uppercase tracking-[0.14em]">
-              <a href="https://www.itau.com.br/emprestimos-financiamentos/credito-imobiliario/simulador/" target="_blank" rel="noopener noreferrer">Simular no Itaú</a>
+              <a href="https://www.itau.com.br/emprestimos-financiamentos/credito-imobiliario" target="_blank" rel="noopener noreferrer">Simular no Itaú</a>
             </Button>
 
           </article>
@@ -442,7 +442,9 @@ const Home = () => {
             <img src={caixaLogo} alt="Logotipo da Caixa Econômica Federal" className="h-16 w-auto" loading="lazy" />
             <p className="mt-4 text-sm text-muted-foreground">Linhas de crédito habitacional com análise de perfil e apoio documental.</p>
             <Button asChild className="mt-5 uppercase tracking-[0.14em]">
-              <a href="https://www4.caixa.gov.br/simulador/escolha-etapa.asp" target="_blank" rel="noopener noreferrer">Simular na Caixa</a>
+              <a href="https://habitacao.caixa.gov.br/siopiweb-web/simulaOperacaoInternet.do?method=inicializarCasoUso&pk_campaign=habitacao&pk_kwd=direct&pk_source=redirectImobiliária em Praia Grande
+
+" target="_blank" rel="noopener noreferrer">Simular na Caixa</a>
             </Button>
 
           </article>

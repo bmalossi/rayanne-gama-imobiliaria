@@ -22,7 +22,18 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-# Environment variables
+
+# Environment variables — NUNCA commitar
 .env
 .env.local
 .env.*.local
+.env.production
+
+# Supabase — arquivos de runtime e credenciais locais
+supabase/.temp/
+
+# Google Service Account keys — NUNCA commitar JSONs com private_key
+*service-account*.json
+*serviceaccount*.json
+*-credentials.json
+*-key.json
