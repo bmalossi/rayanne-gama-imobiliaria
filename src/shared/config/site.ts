@@ -1,11 +1,11 @@
 export const SITE_CONFIG = {
     name: "Rayanne Imobiliária",
     description: "Imóveis de alto padrão para sua qualidade de vida.",
-    url: "https://rayannegama.com.br",
+    url: "https://rayannegamaimoveis.com.br",
     contact: {
         whatsapp: {
-            number: "5513997380000",
-            defaultMessage: "Olá, gostaria de conhecer os imóveis de alto padrão.",
+            number: "5513997685529",
+            defaultMessage: "Olá, quero conversar sobre imóveis",
             getLink: (message?: string) => {
                 const msg = message || SITE_CONFIG.contact.whatsapp.defaultMessage;
                 return `https://wa.me/${SITE_CONFIG.contact.whatsapp.number}?text=${encodeURIComponent(msg)}`;

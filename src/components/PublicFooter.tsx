@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { Instagram, MapPin, Phone, MessageSquare, Facebook } from "lucide-react";
 import { BrandLogo } from "@/components/BrandLogo";
+import { SITE_CONFIG } from "@/shared/config/site";
 
 
 export function PublicFooter() {
-  const whatsappLink = "https://wa.me/5513997685529?text=Ol%C3%A1%2C%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es.";
+  const whatsappLink = SITE_CONFIG.contact.whatsapp.getLink("Olá, quero conversar sobre imóveis");
 
   return (
     <footer className="border-t border-border bg-card/60 pt-16 pb-8">

@@ -2,6 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /dashboard/
 Disallow: /login
-Disallow: /register
+Disallow: /cadastro
 
 Sitemap: https://rayannegamaimoveis.com.br/sitemap.xml
